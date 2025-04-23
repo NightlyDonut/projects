@@ -1,0 +1,85 @@
+Uses graph,crt;
+Const centerx=250;
+centery=260;
+w=20;
+h=8;
+Var x,i,j,k,y,z,a:integer;
+dv,mv:integer;
+
+Procedure kub(x1,y1,z1:integer);
+var xv,yv,a:integer;
+begin
+  setcolor(15);
+  xv:=centerx+(x1*w)-(z1*h);
+  yv:=centery-(y1*w)+(z1*h);
+  rectangle(xv,yv,xv+w,yv+w);
+  line(xv,yv,xv+h,yv-h);
+  line(xv+w,yv,xv+w+h,yv-h);
+  line(xv+h,yv-h,xv+w+h,yv-h);
+  line(xv+h,yv-h,xv+w+h,yv-h);
+  line(xv+w+h,yv-h,xv+w+h,yv+w-h);
+  line(xv+w,yv+w,xv+w+h,yv+w-h);
+  setcolor(4);
+  for a:=1 to w-1 do
+    line(xv+a,yv+1,xv+a,yv+w-1);
+  setcolor(2);
+  for a:=1 to h-1 do
+    line(xv+a+1,yv-a,xv+a+w-1,yv-a);
+  setcolor(14);
+  for a:=1 to h-1 do
+    line(xv+a+w,yv-a+1,xv+a+w,yv-a+w-1);
+  delay(5);
+end;
+
+Procedure ten(x1,y1,z1:integer);
+var xv,yv,a:integer;
+begin
+  setcolor(15); 
+  xv:=centerx+(x1*w)-(z1*h);
+  yv:=centery-(y1*w)+(z1*h);
+  line(xv,yv,xv+w,yv);
+  line(xv,yv,xv+h,yv-h);
+  line(xv+w,yv,xv+w+h,yv-h);
+  line(xv+h,yv-h,xv+w+h,yv-h);
+  setcolor(4);
+  delay(5);
+end;
+
+procedure sitka;
+begin
+  for j:=1 to 16 do 
+    for i:=j to 16-j do
+      for k:=j to 16-j do
+        ten(i,j,k);
+end;
+
+procedure kub_;
+begin
+  for j:=1 to 11 do
+    for i:=1 to 11 do
+      for k:=1 to 11 do
+        kub(i,j,k);
+end;
+
+procedure pyr;
+var zOx, xyz, pli: integer;
+begin
+  zOx := 5;
+  for y := 1 to zOx do
+  begin
+    xyz := 12 - y*2;  
+    pli := y;   
+    for x := pli to pli + xyz - 1 do
+      for z := pli to pli + xyz - 1 do
+        kub(x, y, z);  
+  end;
+end;
+
+Begin
+  dv:=detect;
+  initgraph(dv,mv,'');
+  cleardevice;
+  sitka;
+  {pyr;  <- or ->  kub_;}
+  readkey
+End.
